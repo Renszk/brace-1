@@ -9451,11 +9451,11 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                     foldWidgets[row] = this.getFoldWidget(row);
                 if (foldWidgets[row] != "start")
                     continue;
-                var lines = this.getDocument();
+                var doc = editor.session.getDocument();
                 var range = this.getFoldWidgetRange(row);
                 if ((range && range.isMultiLine()
                     && range.end.row <= endRow
-                    && range.start.row >= startRow) || (all_comments && lines[row].indexOf('/**') > -1)
+                    && range.start.row >= startRow) || (all_comments && doc.$lines[row].indexOf('/**') > -1)
                 ) {
                     row = range.end.row;
                     try {
