@@ -9446,13 +9446,15 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                 return; // mode doesn't support folding
             endRow = endRow || this.getLength();
             startRow = startRow || 0;
+            var _this = this;
             for (var row = startRow; row < endRow; row++) {
+
                 if (foldWidgets[row] == null)
                     foldWidgets[row] = this.getFoldWidget(row);
                 if (foldWidgets[row] != "start")
                     continue;
                 var doc = editor.session.getDocument();
-                var range = this.getFoldWidgetRange(row);
+                var range = _this.getFoldWidgetRange(row);
                 if ((range && range.isMultiLine()
                     && range.end.row <= endRow
                     && range.start.row >= startRow) || (all_comments && doc.$lines[row].indexOf('/**') > -1)
