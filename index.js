@@ -9438,8 +9438,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
             }
         };
 
-        this.foldAll = function(startRow, endRow, depth) {
-            console.log(startRow,endRow);
+        this.foldAll = function(startRow, endRow, depth, all_comments) {
             if (depth == undefined)
                 depth = 100000; // JSON.stringify doesn't hanle Infinity
             var foldWidgets = this.foldWidgets;
@@ -9454,9 +9453,9 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                     continue;
 
                 var range = this.getFoldWidgetRange(row);
-                if (range && range.isMultiLine()
+                if ((range && range.isMultiLine()
                     && range.end.row <= endRow
-                    && range.start.row >= startRow
+                    && range.start.row >= startRow) || (all_comments)
                 ) {
                     row = range.end.row;
                     try {
