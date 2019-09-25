@@ -9439,6 +9439,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
         };
 
         this.foldAll = function(startRow, endRow, depth) {
+            console.log(startRow,endRow);
             if (depth == undefined)
                 depth = 100000; // JSON.stringify doesn't hanle Infinity
             var foldWidgets = this.foldWidgets;
