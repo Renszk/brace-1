@@ -9446,27 +9446,27 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                 return; // mode doesn't support folding
             endRow = endRow || this.getLength();
             startRow = startRow || 0;
+            var doc = this.doc;
             for (var row = startRow; row < endRow; row++) {
-                console.log(row);
-
-                if (foldWidgets[row] == null)
-                    foldWidgets[row] = this.getFoldWidget(row);
-                if (foldWidgets[row] != "start")
-                    continue;
-                var doc = this.doc;
-                var range = this.getFoldWidgetRange(row);
-                if ((range && range.isMultiLine()
-                    && range.end.row <= endRow
-                    && range.start.row >= startRow) || (all_comments && doc.$lines[row].indexOf('/**') > -1)
-                ) {
-                    row = range.end.row;
-                    try {
-                        var fold = this.addFold("...", range);
-                        if (fold && !all_comments)
-                            fold.collapseChildren = depth;
-                    } catch(e) {}
+                if(doc.$lines[row].indexOf('/*') > -1){
+                    if (foldWidgets[row] == null)
+                        foldWidgets[row] = this.getFoldWidget(row);
+                    if (foldWidgets[row] != "start")
+                        continue;
+                    var range = this.getFoldWidgetRange(row);
+                    if ((range && range.isMultiLine()
+                        && range.end.row <= endRow
+                        && range.start.row >= startRow) || all_comments
+                    ) {
+                        row = range.end.row;
+                        try {
+                            var fold = this.addFold("...", range);
+                            if (fold && !all_comments)
+                                fold.collapseChildren = depth;
+                        } catch(e) {}
+                    }
+                    }
                 }
-            }
         };
         this.$foldStyles = {
             "manual": 1,
