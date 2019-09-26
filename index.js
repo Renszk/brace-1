@@ -9452,7 +9452,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                     if (foldWidgets[row] == null)
                         foldWidgets[row] = this.getFoldWidget(row);
                     if (foldWidgets[row] != "start"){
-                        console.log(a);continue;
+                        console.log('a');continue;
                     }
 
                     var range = this.getFoldWidgetRange(row);
