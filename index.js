@@ -9460,7 +9460,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                     }
                     console.log(4);
                     var range = this.getFoldWidgetRange(row);
-                    console.log(6);
+                    console.log(range);
 
                     if ((range && range.isMultiLine()
                         && range.end.row <= endRow
