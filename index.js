@@ -9449,24 +9449,32 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
             var doc = this.doc;
             for (var row = startRow; row < endRow; row++) {
                 if(doc.$lines[row].indexOf('/*') > -1){
-                    if (foldWidgets[row] == null){
+                    console.log(1);
+                    if (foldWidgets[row] == null) {
+                        console.log(2);
                         foldWidgets[row] = this.getFoldWidget(row);
                     }
                     if (foldWidgets[row] != "start" && !all_comments){
+                        console.log(3);
                         continue;
                     }
-
+                    console.log(4);
                     var range = this.getFoldWidgetRange(row);
                     if ((range && range.isMultiLine()
                         && range.end.row <= endRow
                         && range.start.row >= startRow) || all_comments
                     ) {
+                        console.log(5);
                         row = range.end.row;
                         try {
+                            console.log(6);
                             var fold = this.addFold("...", range);
                             if (fold)
+                                console.log(7);
                                 fold.collapseChildren = depth;
-                        } catch(e) {}
+                        } catch(e) {
+                            console.log(8);
+                        }
                     }
                     }
                 }
