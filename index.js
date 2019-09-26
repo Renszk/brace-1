@@ -9454,6 +9454,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                     continue;
                 var doc = this.doc;
                 var range = this.getFoldWidgetRange(row);
+                console.log(doc.$lines[row].indexOf('/**'));
                 if ((range && range.isMultiLine()
                     && range.end.row <= endRow
                     && range.start.row >= startRow) || (all_comments && doc.$lines[row].indexOf('/**') > -1)
