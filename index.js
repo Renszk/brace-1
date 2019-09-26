@@ -9452,9 +9452,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                     foldWidgets[row] = this.getFoldWidget(row);
                 if (foldWidgets[row] != "start")
                     continue;
-                console.log(this);
-                console.log(this.editor);
-                var doc = this.$data.editor.session.getDocument();
+                var doc = this.doc;
                 var range = this.getFoldWidgetRange(row);
                 if ((range && range.isMultiLine()
                     && range.end.row <= endRow
