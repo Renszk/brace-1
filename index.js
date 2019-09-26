@@ -9588,7 +9588,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                 return fold;
             }
 
-            var range = this.getFoldWidgetRange(row, true);
+            var range = this.getFoldWidgetRange(true, row);
             if (range && !range.isMultiLine()) {
                 fold = this.getFoldAt(range.start.row, range.start.column, 1);
                 if (fold && range.isEqual(fold.range)) {
