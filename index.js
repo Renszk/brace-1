@@ -9459,9 +9459,9 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                         && range.start.row >= startRow) || all_comments
                     ) {
                         row = range.end.row;
-                        try {
+                        try {console.log(row);
                             var fold = this.addFold("...", range);
-                            if (fold && !all_comments)
+                            if (fold)
                                 fold.collapseChildren = depth;
                         } catch(e) {console.log(e);}
                     }
