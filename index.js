@@ -9459,7 +9459,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                         continue;
                     }
                     console.log(4);
-                    var range = session.getFoldWidgetRange(row);
+                    var range = this.session.getFoldWidgetRange(row);
                     console.log(range);
 
                     if ((range && range.isMultiLine()
