@@ -9458,11 +9458,10 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                     && range.end.row <= endRow
                     && range.start.row >= startRow) || (all_comments && doc.$lines[row].indexOf('/**') > -1)
                 ) {
-                    console.log(doc.$lines[row]);
                     row = range.end.row;
                     try {
                         var fold = this.addFold("...", range);
-                        if (fold)
+                        if (fold && !all_comments)
                             fold.collapseChildren = depth;
                     } catch(e) {}
                 }
