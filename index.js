@@ -9466,6 +9466,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                     ) {
                         console.log(5);
                         row = range.end.row;
+                        console.log(row);
                         try {
                             console.log(6);
                             var fold = this.addFold("...", range);
