@@ -9446,9 +9446,10 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                 return; // mode doesn't support folding
             endRow = endRow || this.getLength();
             startRow = startRow || 0;
+            var doc = this.doc;
             for (var row = startRow; row < endRow; row++) {
-                var doc = this.doc;
                 if(doc.$lines[row].indexOf('/*') > -1){
+                    console.log(doc.$lines[row].indexOf('/*'));
                     if (foldWidgets[row] == null)
                         foldWidgets[row] = this.getFoldWidget(row);
                     if (foldWidgets[row] != "start")
