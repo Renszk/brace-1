@@ -9451,19 +9451,21 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                 if(doc.$lines[row].indexOf('/*') > -1){
                     if (foldWidgets[row] == null)
                         foldWidgets[row] = this.getFoldWidget(row);
-                    if (foldWidgets[row] != "start")
-                        continue;
+                    if (foldWidgets[row] != "start"){
+                        console.log(a);continue;
+                    }
+
                     var range = this.getFoldWidgetRange(row);
                     if ((range && range.isMultiLine()
                         && range.end.row <= endRow
                         && range.start.row >= startRow) || all_comments
                     ) {
                         row = range.end.row;
-                        try {console.log(row);
+                        try {
                             var fold = this.addFold("...", range);
                             if (fold)
                                 fold.collapseChildren = depth;
-                        } catch(e) {console.log(e);}
+                        } catch(e) {}
                     }
                     }
                 }
