@@ -9467,9 +9467,15 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                         && range.start.row >= startRow) || all_comments
                     ) {
                         console.log(5);
-                        row = 48;//range.end.row;
+                        if(!range){
+                            this.editor.find('*/', {}, true);
+                            this.position = this.editor.getCursorPosition();
+                            row = this.position.row;
+                            var range = new Range(startRow, 1, row, 1);
+                        }
+                        //range.end.row;
                         console.log(range);
-                        var range = new Range(42, 1, 48, 1);
+                        // var range = new Range(42, 1, 48, 1);
                         try {
                             var fold = this.addFold("...", range);
                             if (fold)
