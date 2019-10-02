@@ -9470,6 +9470,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                         if(!range){
                             this.editor.find('*/', {}, true);
                             this.position = this.editor.getCursorPosition();
+                            console.log(this.position);
                             row = this.position.row;
                             var range = new Range(startRow, 1, row, 1);
                         }
