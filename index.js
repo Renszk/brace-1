@@ -9469,7 +9469,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                         console.log(5);
                         row = 48;//range.end.row;
                         console.log(range);
-                        var range = new Range(43, 1, 48, 1);
+                        var range = new Range(42, 1, 48, 1);
                         try {
                             var fold = this.addFold("...", range);
                             if (fold)
