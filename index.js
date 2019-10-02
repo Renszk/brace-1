@@ -9468,7 +9468,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                     ) {
                         console.log(5);
                         if(!range  || range == undefined){
-                            this.find('*/', {}, true);
+                            console.log(this.find('*/', {}, false));
                             this.position = this.getCursorPosition();
                             console.log(this.getCursorPosition());
                             row = this.position.row;
