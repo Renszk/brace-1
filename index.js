@@ -9478,7 +9478,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                         // var range = new Range(42, 1, 48, 1);
                         try {
                             var fold = this.addFold("...", range);
-                            if (fold)
+                            if (fold && !all_comments);
                                 console.log(7);
                                 fold.collapseChildren = depth;
                         } catch(e) {
