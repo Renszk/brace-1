@@ -9448,7 +9448,6 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
             var doc = this.doc;
             for (var row = startRow; row < endRow; row++) {
                 if(doc.$lines[row].indexOf('/*') > -1){
-                    console.log(row);
                     if (foldWidgets[row] == null) {
                         foldWidgets[row] = this.getFoldWidget(row);
                     }
@@ -9461,7 +9460,6 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                         && range.end.row <= endRow
                         && range.start.row >= startRow) || all_comments
                     ) {
-
                         if(!range  || range == undefined){
                             editor.find('*/' , {} , false);
                             this.position = editor.getCursorPosition();
@@ -9475,8 +9473,8 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                         } catch(e) {
                         }
                     }
-                    }
                 }
+            }
         };
         this.$foldStyles = {
             "manual": 1,
