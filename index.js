@@ -9437,8 +9437,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                 return range;
             }
         };
-
-        this.foldAll = function(startRow, endRow, depth) {
+        this.foldAll = function(startRow, endRow, depth, all_comments, editor) {
             if (depth == undefined)
                 depth = 100000; // JSON.stringify doesn't hanle Infinity
             var foldWidgets = this.foldWidgets;
@@ -9446,25 +9445,38 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                 return; // mode doesn't support folding
             endRow = endRow || this.getLength();
             startRow = startRow || 0;
+            var doc = this.doc;
             for (var row = startRow; row < endRow; row++) {
-                if (foldWidgets[row] == null)
-                    foldWidgets[row] = this.getFoldWidget(row);
-                if (foldWidgets[row] != "start")
-                    continue;
+                if(doc.$lines[row].indexOf('/*') > -1){
+                    console.log(row);
+                    if (foldWidgets[row] == null) {
+                        foldWidgets[row] = this.getFoldWidget(row);
+                    }
+                    if (foldWidgets[row] != "start" && !all_comments){
+                        continue;
+                    }
+                    var range = this.getFoldWidgetRange(row);
 
-                var range = this.getFoldWidgetRange(row);
-                if (range && range.isMultiLine()
-                    && range.end.row <= endRow
-                    && range.start.row >= startRow
-                ) {
-                    row = range.end.row;
-                    try {
-                        var fold = this.addFold("...", range);
-                        if (fold)
-                            fold.collapseChildren = depth;
-                    } catch(e) {}
+                    if ((range && range.isMultiLine()
+                        && range.end.row <= endRow
+                        && range.start.row >= startRow) || all_comments
+                    ) {
+
+                        if(!range  || range == undefined){
+                            editor.find('*/' , {} , false);
+                            this.position = editor.getCursorPosition();
+                            row = this.position.row;
+                            var range = new Range(startRow, 1, row, 1);
+                        }
+                        try {
+                            var fold = this.addFold("...", range);
+                            if (fold && !all_comments)
+                                fold.collapseChildren = depth;
+                        } catch(e) {
+                        }
+                    }
+                    }
                 }
-            }
         };
         this.$foldStyles = {
             "manual": 1,
