@@ -9439,6 +9439,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
         };
 
         this.foldAll = function(startRow, endRow, depth, all_comments, editor) {
+            editor.current_folds = [];
             if (depth == undefined)
                 depth = 100000; // JSON.stringify doesn't hanle Infinity
             var foldWidgets = this.foldWidgets;
@@ -9471,6 +9472,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                         }
                         try {
                             var fold = this.addFold("...", range);
+                            editor.current_folds.push(fold);
                             if (fold && !all_comments)
                                 fold.collapseChildren = depth;
                         } catch(e) {
