@@ -9448,6 +9448,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
             var doc = this.doc;
             for (var row = startRow; row < endRow; row++) {
                 if(doc.$lines[row].indexOf('/*') > -1){
+                    console.log(row);
                     if (foldWidgets[row] == null) {
                         foldWidgets[row] = this.getFoldWidget(row);
                     }
@@ -9464,7 +9465,6 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                             editor.find('*/' , {} , false);
                             this.position = editor.getCursorPosition();
                             row = this.position.row;
-                            console.log(row);
                             var range = new Range(startRow, 1, row, 1);
                         }
                         try {
