@@ -9449,7 +9449,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
             startRow = startRow || 0;
             var doc = this.doc;
             for (var row = startRow; row < endRow; row++) {
-                if(doc.$lines[row].indexOf('/*') > -1 && doc.$lines[row].indexOf('/*') < 0){
+                if(doc.$lines[row].indexOf('/*') > -1 && doc.$lines[row].indexOf('*/') < 0){
                     if (foldWidgets[row] == null) {
                         foldWidgets[row] = this.getFoldWidget(row);
                     }
