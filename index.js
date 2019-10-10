@@ -9438,7 +9438,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
             }
         };
 
-        this.foldAll = function(startRow, endRow, depth, all_comments, editor) {
+        this.foldAll = function(startRow, endRow, depth, only_comments, editor) {
             editor.current_folds = [];
             if (depth == undefined)
                 depth = 100000; // JSON.stringify doesn't hanle Infinity
@@ -9449,34 +9449,29 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
             startRow = startRow || 0;
             var doc = this.doc;
             for (var row = startRow; row < endRow; row++) {
-                if(doc.$lines[row].indexOf('/*') > -1 && doc.$lines[row].indexOf('*/') < 0){
+                if(only_comments && !(doc.$lines[row].indexOf('/*') > -1 && doc.$lines[row].indexOf('*/') < 0)){
+                    continue;
+                }
                     if (foldWidgets[row] == null) {
                         foldWidgets[row] = this.getFoldWidget(row);
                     }
-                    if (foldWidgets[row] != "start" && !all_comments){
+                    if (foldWidgets[row] != "start"){
                         continue;
                     }
                     var range = this.getFoldWidgetRange(row);
 
                     if ((range && range.isMultiLine()
                         && range.end.row <= endRow
-                        && range.start.row >= startRow) || all_comments
+                        && range.start.row >= startRow)
                     ) {
-                        if(!range  || range == undefined){
-                            editor.find('*/' , {} , false);
-                            this.position = editor.getCursorPosition();
-                            row = this.position.row;
-                            var range = new Range(startRow, 1, row, 1);
-                        }
                         try {
                             var fold = this.addFold("...", range);
                             editor.current_folds.push(fold);
-                            if (fold && !all_comments)
+                            if (fold)
                                 fold.collapseChildren = depth;
                         } catch(e) {
                         }
                     }
-                }
             }
         };
         this.$foldStyles = {
