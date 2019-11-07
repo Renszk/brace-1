@@ -9440,22 +9440,29 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
 
         this.foldAll = function(startRow, endRow, depth, all_comments, editor) {
             editor.current_folds = [];
+            console.log(1);
             if (depth == undefined)
+                console.log(2);
                 depth = 100000; // JSON.stringify doesn't hanle Infinity
             var foldWidgets = this.foldWidgets;
             if (!foldWidgets)
+                console.log(3);
                 return; // mode doesn't support folding
             endRow = endRow || this.getLength();
             startRow = startRow || 0;
             var doc = this.doc;
             for (var row = startRow; row < endRow; row++) {
+                console.log(4);
                 console.log(row);
-                if(doc.$lines[row].indexOf('/*') > -1 && doc.$lines[row].indexOf('*/') < 0){
+                if(doc.$lines[row].indexOf('/*') > -1){
+                    console.log(5);
                     console.log(row);
                     if (foldWidgets[row] == null) {
+                        console.log(6);
                         foldWidgets[row] = this.getFoldWidget(row);
                     }
                     if (foldWidgets[row] != "start" && !all_comments){
+                        console.log(7);
                         continue;
                     }
                     var range = this.getFoldWidgetRange(row);
@@ -9465,17 +9472,20 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                         && range.start.row >= startRow) || all_comments
                     ) {
                         if(!range  || range == undefined){
+                            console.log(8);
                             editor.find('*/' , {} , false);
                             this.position = editor.getCursorPosition();
                             row = this.position.row;
                             var range = new Range(startRow, 1, row, 1);
                         }
                         try {
+                            console.log(9);
                             var fold = this.addFold("...", range);
                             editor.current_folds.push(fold);
                             if (fold && !all_comments)
                                 fold.collapseChildren = depth;
                         } catch(e) {
+                            console.log(10);
                         }
                     }
                 }
