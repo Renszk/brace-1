@@ -9438,11 +9438,14 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
             }
         };
         this.foldAll = function(startRow, endRow, depth, only_comments, editor) {
+            console.log(1);
             editor.current_folds = [];
             if (depth == undefined)
+                console.log(2);
                 depth = 100000; // JSON.stringify doesn't hanle Infinity
             var foldWidgets = this.foldWidgets;
             if (!foldWidgets)
+                console.log(3);
                 return; // mode doesn't support folding
             endRow = endRow || this.getLength();
             startRow = startRow || 0;
@@ -9451,10 +9454,13 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                 //when sent only_comments param as true, check if line doesn't start with /*, then skip to next iteration,
                 // Also when its a comment like /* ... */ in a single line skip to next iteration
                 if(only_comments && !(doc.$lines[row].indexOf('/*') > -1 && doc.$lines[row].indexOf('*/') < 0))
+                    cnosooel.log(4);
                     continue;
                 if (foldWidgets[row] == null)
+                    console.log(5);
                     foldWidgets[row] = this.getFoldWidget(row);
                 if (foldWidgets[row] != "start")
+                    conosle.log(6);
                     continue;
 
                 var range = this.getFoldWidgetRange(row);
@@ -9462,11 +9468,14 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                     && range.end.row <= endRow
                     && range.start.row >= startRow
                 ) {
+                    console.log(7);
                     row = range.end.row;
                     try {
+                        conosle.log(8);
                         var fold = this.addFold("...", range);
                         editor.current_folds.push(fold);
                         if (fold)
+                            console.log(9);
                             fold.collapseChildren = depth;
                     } catch(e) {}
                 }
