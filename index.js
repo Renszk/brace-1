@@ -9476,29 +9476,22 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
 
         this.foldAll = function(startRow, endRow, depth, only_comments, editor) {
             editor.current_folds = [];
-            console.log(1);
             if (depth == undefined)
-                console.log(2);
                 depth = 100000; // JSON.stringify doesn't hanle Infinity
             var foldWidgets = this.foldWidgets;
             if (!foldWidgets)
-                console.log(3);
                 return; // mode doesn't support folding
             endRow = endRow || this.getLength();
             startRow = startRow || 0;
             var doc = this.doc;
             for (var row = startRow; row < endRow; row++) {
-                console.log(4);
                 //when sent only_comments param as true, check if line doesn't start with /*, then skip to next iteration,
                 // Also when its a comment like /* ... */ in a single line skip to next iteration
                 if(only_comments && !(doc.$lines[row].indexOf('/*') > -1 && doc.$lines[row].indexOf('*/') < 0))
-                    console.log(5);
                     continue;
                 if (foldWidgets[row] == null)
-                    console.log(6);
                     foldWidgets[row] = this.getFoldWidget(row);
                 if (foldWidgets[row] != "start")
-                    console.log(7);
                     continue;
 
                 var range = this.getFoldWidgetRange(row);
@@ -9506,17 +9499,49 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                     && range.end.row <= endRow
                     && range.start.row >= startRow
                 ) {
-                    consel.log(8);
                     row = range.end.row;
                     try {
-                        console.log(9);
                         var fold = this.addFold("...", range);
                         editor.current_folds.push(fold);
                         if (fold)
                             fold.collapseChildren = depth;
-                    } catch(e) {
-                        console.log(10);
-                    }
+                    } catch(e) {}
+                }
+            }
+        };
+
+        this.foldAll = function(startRow, endRow, depth, only_comments, editor) {
+            editor.current_folds = [];
+            if (depth == undefined)
+                depth = 100000; // JSON.stringify doesn't hanle Infinity
+            var foldWidgets = this.foldWidgets;
+            if (!foldWidgets)
+                return; // mode doesn't support folding
+            endRow = endRow || this.getLength();
+            startRow = startRow || 0;
+            var doc = this.doc;
+            for (var row = startRow; row < endRow; row++) {
+                //when sent only_comments param as true, check if line doesn't start with /*, then skip to next iteration,
+                // Also when its a comment like /* ... */ in a single line skip to next iteration
+                if(only_comments && !(doc.$lines[row].indexOf('/*') > -1 && doc.$lines[row].indexOf('*/') < 0))
+                    continue;
+                if (foldWidgets[row] == null)
+                    foldWidgets[row] = this.getFoldWidget(row);
+                if (foldWidgets[row] != "start")
+                    continue;
+
+                var range = this.getFoldWidgetRange(row);
+                if (range && range.isMultiLine()
+                    && range.end.row <= endRow
+                    && range.start.row >= startRow
+                ) {
+                    row = range.end.row;
+                    try {
+                        var fold = this.addFold("...", range);
+                        editor.current_folds.push(fold);
+                        if (fold)
+                            fold.collapseChildren = depth;
+                    } catch(e) {}
                 }
             }
         };
