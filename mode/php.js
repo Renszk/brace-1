@@ -1881,7 +1881,7 @@ var PhpLangHighlightRules = function() {
             },
             {
                 token : "test",
-                regex : ":*:"
+                regex : ":[a-zA-Z]:"
             },
             {
                 token : "codepuzzleoption",
