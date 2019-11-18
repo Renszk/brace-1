@@ -9464,7 +9464,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
                     console.log(5);
                     foldWidgets[row] = this.getFoldWidget(row);
                 }
-                if (foldWidgets[row] != "start" || only_comments){
+                if (foldWidgets[row] != "start" && !only_comments){
                     console.log(6);
                     continue;
                 }
