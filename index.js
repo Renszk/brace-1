@@ -9439,6 +9439,7 @@ ace.define("ace/edit_session/folding",["require","exports","module","ace/range",
         };
 
         this.foldAll = function(startRow, endRow, depth, only_comments, editor) {
+            console.log(1);
             editor.current_folds = [];
             if (depth == undefined) {
                 console.log(2);
