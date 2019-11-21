@@ -7845,8 +7845,8 @@ ace.define("ace/document",["require","exports","module","ace/lib/oop","ace/apply
         oop.implement(this, EventEmitter);
         this.setValue = function(text) {
             var len = this.getLength() - 1;
-            this.remove(new Range(0, 0, len, this.getLine(len).length));
             debugger;
+            this.remove(new Range(0, 0, len, this.getLine(len).length));
             this.ignore_remove_check  = true;
             this.insert({row: 0, column: 0}, text);
         };
