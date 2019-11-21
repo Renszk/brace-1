@@ -7847,6 +7847,7 @@ ace.define("ace/document",["require","exports","module","ace/lib/oop","ace/apply
             var len = this.getLength() - 1;
             this.remove(new Range(0, 0, len, this.getLine(len).length));
             this.ignore_remove_check  = true;
+            debugger;
             this.insert({row: 0, column: 0}, text);
         };
         this.getValue = function() {
@@ -7938,7 +7939,6 @@ ace.define("ace/document",["require","exports","module","ace/lib/oop","ace/apply
             return this.insertMergedLines(position, ["", ""]);
         };
         this.insert = function(position, text) {
-            debugger;
             if (this.getLength() <= 1)
                 this.$detectNewLine(text);
 
