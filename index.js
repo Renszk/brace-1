@@ -7845,10 +7845,7 @@ ace.define("ace/document",["require","exports","module","ace/lib/oop","ace/apply
         oop.implement(this, EventEmitter);
         this.setValue = function(text) {
             var len = this.getLength() - 1;
-            debugger;
             this.remove(new Range(0, 0, len, this.getLine(len).length));
-
-            this.ignore_string_remove_check  = true;
             this.insert({row: 0, column: 0}, text);
         };
         this.getValue = function() {
@@ -8025,20 +8022,15 @@ ace.define("ace/document",["require","exports","module","ace/lib/oop","ace/apply
             return this.clonePos(end);
         };
         this.remove = function(range) {
-            try{
-                var start = this.clippedPos(range.start.row, range.start.column);
-                var end = this.clippedPos(range.end.row, range.end.column);
-                this.applyDelta({
-                    start: start,
-                    end: end,
-                    action: "remove",
-                    lines: this.getLinesForRange({start: start, end: end})
-                });
-                return this.clonePos(start);
-            }
-            catch(error){
-                console.log(error);
-            }
+            var start = this.clippedPos(range.start.row, range.start.column);
+            var end = this.clippedPos(range.end.row, range.end.column);
+            this.applyDelta({
+                start: start,
+                end: end,
+                action: "remove",
+                lines: this.getLinesForRange({start: start, end: end})
+            });
+            return this.clonePos(start);
         };
         this.removeInLine = function(row, startColumn, endColumn) {
             var start = this.clippedPos(row, startColumn);
